@@ -21,12 +21,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         var cardsImage = [String]()
-        var cards = [Int]()
+        var cards = [Card]()
         
         let tehuda = Deck().getRandom(count: 5)
         for card in tehuda {
             let cardImage = Card.toImageName(card)
-            cards.append(card.number)
+            cards.append(card)
             cardsImage.append(cardImage())
         }
         
@@ -36,10 +36,11 @@ class ViewController: UIViewController {
         self.card4.image = UIImage(named: cardsImage[3])
         self.card5.image = UIImage(named: cardsImage[4])
         
-        let isTwoPair = hantei().pair(ints: cards)
-        if isTwoPair {
-            self.label.text = "ツーペア"
-        }
+//        let isThreePair = hantei().threePair(ints: cards)
+        let rowRankHand = hantei.getScore(cards: cards)
+        
+        self.label.text = rowRankHand
+        
     }
 
     override func didReceiveMemoryWarning() {
