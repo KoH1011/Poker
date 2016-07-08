@@ -20,58 +20,66 @@ enum Role: String {
     case royalStraightFlash = "ロイヤルストレートフラッシュ"
 }
 
-class hantei {
-    class func getScore(cards: [Card]) -> String {
+class judge {
+    class func role(cards: [Card]) -> (String, Int) {
         // 各ランクがそれぞれ何枚あるかをnumOfRanksに保存
-        var numOfRanks = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        var numOfRanks = [0,0,0,0,0,0,0,0,0,0,0,0,0]
         for card in cards {
-            numOfRanks[card.number] += 1
+            numOfRanks[card.number - 1] += 1
         }
-        var yaku = ""
-        print("-----------------------------------------")
-        print(numOfRanks)
+        let role = ""
+        var roleScore = 0
 //         ROYAL_STRAIGHT_FLUSH
         if isStraight(cards: cards, numOfRanks: numOfRanks) && isFlush(cards: cards) && numOfRanks[10] == 1 && numOfRanks[1] == 1 {
-            return Role.royalStraightFlash.rawValue
+            roleScore = 10
+            return (Role.royalStraightFlash.rawValue, roleScore)
         }
         // STRAIGHT_FLUSH
         if isStraight(cards: cards, numOfRanks: numOfRanks) && isFlush(cards: cards) {
-            return Role.straightFlash.rawValue
+            roleScore = 9
+            return (Role.straightFlash.rawValue, roleScore)
         }
         // FOUR_OF_A_KIND
         if numOfRanks.index(of: 4) != nil {
-            return Role.fourCard.rawValue
+            roleScore = 8
+            return (Role.fourCard.rawValue, roleScore)
         }
         // FULL_HOUSE
         if numOfRanks.index(of: 3) != nil && numOfRanks.index(of: 2) != nil {
-            return Role.fullHouse.rawValue
+            roleScore = 7
+            return (Role.fullHouse.rawValue, roleScore)
         }
         // FLUSH
         if isFlush(cards: cards) {
-            return Role.flash.rawValue
+            roleScore = 6
+            return (Role.flash.rawValue, roleScore)
         }
         // STRAIGHT
         if isStraight(cards: cards, numOfRanks: numOfRanks) {
-            return Role.straight.rawValue
+            roleScore = 5
+            return (Role.straight.rawValue, roleScore)
         }
         // THREE_OF_A_KIND
         if numOfRanks.index(of: 3) != nil {
-            return Role.threeCard.rawValue
+            roleScore = 4
+            return (Role.threeCard.rawValue, roleScore)
         }
         // TWO_PAIR
         if numOfRanks.filter({$0 == 2}).count == 2 {
-            yaku = Role.twoPair.rawValue
-            return yaku
+            roleScore = 3
+            return (Role.twoPair.rawValue, roleScore)
         }
         // ONE_PAIR
         if numOfRanks.index(of: 2) != nil {
-            return Role.onePair.rawValue
+            roleScore = 2
+            return (Role.onePair.rawValue, roleScore)
         }
         
-        if yaku == "" {
-            return "ブタ"
+        if role == "" {
+            roleScore = 1
+            return ("ブタ", roleScore)
         }
-        return yaku
+        return (role, roleScore)
     }
     
     private class func isStraight(cards: [Card], numOfRanks: [Int]) -> Bool {
