@@ -18,6 +18,25 @@ enum Role: String {
     case fourCard = "フォーカード"
     case straightFlash = "ストレートフラッシュ"
     case royalStraightFlash = "ロイヤルストレートフラッシュ"
+    
+    var name : String {
+        switch self {
+        case .buta:
+            return "ぶた"
+        default:
+            <#code#>
+        }
+    }
+    
+    var score : Int {
+        switch self {
+        case .buta:
+            return 0
+            
+        default:
+            <#code#>
+        }
+    }
 }
 
 class judge {

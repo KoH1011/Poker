@@ -68,7 +68,7 @@ class ViewController: UIViewController {
         self.label.text = "あなたの手役は\(rowRankHand.0)です。"
         self.youScore = rowRankHand.1
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
