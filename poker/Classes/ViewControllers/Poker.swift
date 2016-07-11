@@ -119,6 +119,7 @@ class judge {
         }
     }
     
+    // 判定ミスあり (11 12 13 2 3)
     private class func isStraight(cards: [Card], numOfRanks: [Int]) -> Bool {
         var isStraight = false
         for i in 1 ..< 13 {

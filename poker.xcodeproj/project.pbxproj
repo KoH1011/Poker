@@ -10,10 +10,10 @@
 		C351B1FA1D28241B00DD2C58 /* Poker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C351B1F91D28241B00DD2C58 /* Poker.swift */; };
 		C3B4C2FF1D2E7D5500239651 /* b.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B4C2FD1D2E7D5500239651 /* b.png */; };
 		C3B4C3001D2E7D5500239651 /* r.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B4C2FE1D2E7D5500239651 /* r.png */; };
+		C3DFF76B1D3354A5007847B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3DFF7691D3354A5007847B3 /* LaunchScreen.storyboard */; };
 		C3E55DCE1D27A24D00EEF858 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E55DCD1D27A24D00EEF858 /* AppDelegate.swift */; };
 		C3E55DD31D27A24D00EEF858 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3E55DD11D27A24D00EEF858 /* Main.storyboard */; };
 		C3E55DD51D27A24D00EEF858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E55DD41D27A24D00EEF858 /* Assets.xcassets */; };
-		C3E55DD81D27A24D00EEF858 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3E55DD61D27A24D00EEF858 /* LaunchScreen.storyboard */; };
 		C3E55DE31D27A24D00EEF858 /* pokerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E55DE21D27A24D00EEF858 /* pokerTests.swift */; };
 		C3E55DEE1D27A24D00EEF858 /* pokerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E55DED1D27A24D00EEF858 /* pokerUITests.swift */; };
 		C3E55DFF1D27AB8B00EEF858 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E55DFD1D27AB8B00EEF858 /* ViewController.swift */; };
@@ -94,11 +94,11 @@
 		C351B1F91D28241B00DD2C58 /* Poker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Poker.swift; sourceTree = "<group>"; };
 		C3B4C2FD1D2E7D5500239651 /* b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = b.png; sourceTree = "<group>"; };
 		C3B4C2FE1D2E7D5500239651 /* r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r.png; sourceTree = "<group>"; };
+		C3DFF76A1D3354A5007847B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3E55DCA1D27A24D00EEF858 /* poker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = poker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E55DCD1D27A24D00EEF858 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3E55DD21D27A24D00EEF858 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C3E55DD41D27A24D00EEF858 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C3E55DD71D27A24D00EEF858 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3E55DD91D27A24D00EEF858 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3E55DDE1D27A24D00EEF858 /* pokerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pokerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E55DE21D27A24D00EEF858 /* pokerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pokerTests.swift; sourceTree = "<group>"; };
@@ -211,11 +211,11 @@
 		C3E55DCC1D27A24D00EEF858 /* poker */ = {
 			isa = PBXGroup;
 			children = (
+				C3DFF7691D3354A5007847B3 /* LaunchScreen.storyboard */,
 				C3E55DFB1D27AB8B00EEF858 /* Classes */,
 				C3E55DCD1D27A24D00EEF858 /* AppDelegate.swift */,
 				C3E55DD11D27A24D00EEF858 /* Main.storyboard */,
 				C3E55DD41D27A24D00EEF858 /* Assets.xcassets */,
-				C3E55DD61D27A24D00EEF858 /* LaunchScreen.storyboard */,
 				C3E55DD91D27A24D00EEF858 /* Info.plist */,
 				C3E55E731D27ABC500EEF858 /* trump */,
 			);
@@ -454,7 +454,6 @@
 				C3E55EAF1D27ABC500EEF858 /* c3.png in Resources */,
 				C3E55ED91D27ABC500EEF858 /* s6.png in Resources */,
 				C3E55EB91D27ABC500EEF858 /* c13.png in Resources */,
-				C3E55DD81D27A24D00EEF858 /* LaunchScreen.storyboard in Resources */,
 				C3E55EB11D27ABC500EEF858 /* c5.png in Resources */,
 				C3E55EDE1D27ABC500EEF858 /* s11.png in Resources */,
 				C3E55DD51D27A24D00EEF858 /* Assets.xcassets in Resources */,
@@ -465,6 +464,7 @@
 				C3E55ED61D27ABC500EEF858 /* s3.png in Resources */,
 				C3E55EC31D27ABC500EEF858 /* d10.png in Resources */,
 				C3B4C3001D2E7D5500239651 /* r.png in Resources */,
+				C3DFF76B1D3354A5007847B3 /* LaunchScreen.storyboard in Resources */,
 				C3E55EB31D27ABC500EEF858 /* c7.png in Resources */,
 				C3E55ED51D27ABC500EEF858 /* s2.png in Resources */,
 				C3E55ECF1D27ABC500EEF858 /* h9.png in Resources */,
@@ -570,20 +570,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		C3DFF7691D3354A5007847B3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3DFF76A1D3354A5007847B3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		C3E55DD11D27A24D00EEF858 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C3E55DD21D27A24D00EEF858 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		C3E55DD61D27A24D00EEF858 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C3E55DD71D27A24D00EEF858 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
