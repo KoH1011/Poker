@@ -8,23 +8,39 @@
 import UIKit
 
 enum Role: String {
-    case buta = "ブタ"
-    case onePair = "ワンペア"
-    case twoPair = "ツーペア"
-    case threeCard = "スリーカード"
-    case straight = "ストレート"
-    case flash = "フラッシュ"
-    case fullHouse = "フルハウス"
-    case fourCard = "フォーカード"
-    case straightFlash = "ストレートフラッシュ"
-    case royalStraightFlash = "ロイヤルストレートフラッシュ"
+    case buta
+    case onePair
+    case twoPair
+    case threeCard
+    case straight
+    case flash
+    case fullHouse
+    case fourCard
+    case straightFlash
+    case royalStraightFlash
     
     var name : String {
         switch self {
         case .buta:
             return "ぶた"
-        default:
-            <#code#>
+        case .onePair:
+            return "ワンペア"
+        case .twoPair:
+            return "ツーペア"
+        case .threeCard:
+            return "スリーカード"
+        case .straight:
+            return "ストレート"
+        case .flash:
+            return "フラッシュ"
+        case .fullHouse:
+            return "フルハウス"
+        case .fourCard:
+            return "フォーカード"
+        case .straightFlash:
+            return "ストレートフラッシュ"
+        case .royalStraightFlash:
+            return "ロイヤルストレートフラッシュ"
         }
     }
     
@@ -32,9 +48,24 @@ enum Role: String {
         switch self {
         case .buta:
             return 0
-            
-        default:
-            <#code#>
+        case .onePair:
+            return 1
+        case .twoPair:
+            return 2
+        case .threeCard:
+            return 3
+        case .straight:
+            return 4
+        case .flash:
+            return 5
+        case .fullHouse:
+            return 6
+        case .fourCard:
+            return 7
+        case .straightFlash:
+            return 8
+        case .royalStraightFlash:
+            return 9
         }
     }
 }
@@ -46,59 +77,46 @@ class judge {
         for card in cards {
             numOfRanks[card.number - 1] += 1
         }
-        let role = ""
-        var roleScore = 0
-//         ROYAL_STRAIGHT_FLUSH
+        // ROYAL_STRAIGHT_FLUSH
         if isStraight(cards: cards, numOfRanks: numOfRanks) && isFlush(cards: cards) && numOfRanks[10] == 1 && numOfRanks[1] == 1 {
-            roleScore = 10
-            return (Role.royalStraightFlash.rawValue, roleScore)
+            return (Role.royalStraightFlash.name, Role.royalStraightFlash.score)
+            
         }
         // STRAIGHT_FLUSH
         if isStraight(cards: cards, numOfRanks: numOfRanks) && isFlush(cards: cards) {
-            roleScore = 9
-            return (Role.straightFlash.rawValue, roleScore)
+            return (Role.straightFlash.name, Role.straightFlash.score)
         }
         // FOUR_OF_A_KIND
         if numOfRanks.index(of: 4) != nil {
-            roleScore = 8
-            return (Role.fourCard.rawValue, roleScore)
+            return (Role.fourCard.name, Role.fourCard.score)
         }
         // FULL_HOUSE
         if numOfRanks.index(of: 3) != nil && numOfRanks.index(of: 2) != nil {
-            roleScore = 7
-            return (Role.fullHouse.rawValue, roleScore)
+            return (Role.fullHouse.name, Role.fullHouse.score)
         }
         // FLUSH
         if isFlush(cards: cards) {
-            roleScore = 6
-            return (Role.flash.rawValue, roleScore)
+            return (Role.flash.name, Role.flash.score)
         }
         // STRAIGHT
         if isStraight(cards: cards, numOfRanks: numOfRanks) {
-            roleScore = 5
-            return (Role.straight.rawValue, roleScore)
+            return (Role.straight.name, Role.straight.score)
         }
         // THREE_OF_A_KIND
         if numOfRanks.index(of: 3) != nil {
-            roleScore = 4
-            return (Role.threeCard.rawValue, roleScore)
+            return (Role.threeCard.name, Role.threeCard.score)
         }
         // TWO_PAIR
         if numOfRanks.filter({$0 == 2}).count == 2 {
-            roleScore = 3
-            return (Role.twoPair.rawValue, roleScore)
+            return (Role.twoPair.name, Role.twoPair.score)
         }
         // ONE_PAIR
         if numOfRanks.index(of: 2) != nil {
-            roleScore = 2
-            return (Role.onePair.rawValue, roleScore)
+            return (Role.onePair.name, Role.onePair.score)
+        } else {
+        // BUTA
+            return (Role.buta.name, Role.buta.score)
         }
-        
-        if role == "" {
-            roleScore = 1
-            return ("ブタ", roleScore)
-        }
-        return (role, roleScore)
     }
     
     private class func isStraight(cards: [Card], numOfRanks: [Int]) -> Bool {
