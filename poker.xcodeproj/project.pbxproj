@@ -11,6 +11,7 @@
 		C3B4C2FF1D2E7D5500239651 /* b.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B4C2FD1D2E7D5500239651 /* b.png */; };
 		C3B4C3001D2E7D5500239651 /* r.png in Resources */ = {isa = PBXBuildFile; fileRef = C3B4C2FE1D2E7D5500239651 /* r.png */; };
 		C3DFF76B1D3354A5007847B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3DFF7691D3354A5007847B3 /* LaunchScreen.storyboard */; };
+		C3DFF76E1D34DB10007847B3 /* CardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DFF76C1D34DB10007847B3 /* CardCollectionViewCell.swift */; };
 		C3E55DCE1D27A24D00EEF858 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E55DCD1D27A24D00EEF858 /* AppDelegate.swift */; };
 		C3E55DD31D27A24D00EEF858 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3E55DD11D27A24D00EEF858 /* Main.storyboard */; };
 		C3E55DD51D27A24D00EEF858 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E55DD41D27A24D00EEF858 /* Assets.xcassets */; };
@@ -95,6 +96,7 @@
 		C3B4C2FD1D2E7D5500239651 /* b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = b.png; sourceTree = "<group>"; };
 		C3B4C2FE1D2E7D5500239651 /* r.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = r.png; sourceTree = "<group>"; };
 		C3DFF76A1D3354A5007847B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C3DFF76C1D34DB10007847B3 /* CardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardCollectionViewCell.swift; sourceTree = "<group>"; };
 		C3E55DCA1D27A24D00EEF858 /* poker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = poker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E55DCD1D27A24D00EEF858 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3E55DD21D27A24D00EEF858 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 		C3E55DFE1D27AB8B00EEF858 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C3DFF76C1D34DB10007847B3 /* CardCollectionViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				C3E55EE81D27E29100EEF858 /* Deck.swift in Sources */,
 				C3E55DFF1D27AB8B00EEF858 /* ViewController.swift in Sources */,
 				C3E55DCE1D27A24D00EEF858 /* AppDelegate.swift in Sources */,
+				C3DFF76E1D34DB10007847B3 /* CardCollectionViewCell.swift in Sources */,
 				C3E55EEA1D27E56F00EEF858 /* Card.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

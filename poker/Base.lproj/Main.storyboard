@@ -18,26 +18,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A2j-yf-ygH">
-                                <frame key="frameInset" minX="15" minY="454" width="55" height="100"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ecA-2B-hxu">
+                                <frame key="frameInset" minY="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6YZ-gs-c0L">
-                                <frame key="frameInset" minX="160" minY="454" width="55" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SFh-Cg-fcp">
-                                <frame key="frameInset" minX="232" minY="454" width="55" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lBr-dO-Mql">
-                                <frame key="frameInset" minX="88" minY="454" width="55" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EJl-Os-hlD">
-                                <frame key="frameInset" minX="305" minY="454" width="55" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="250" minimumInteritemSpacing="15" id="gu2-l8-dPo">
+                                    <size key="itemSize" width="50" height="100"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="n4e-rh-GeL" customClass="CardCollectionViewCell" customModule="poker" customModuleProvider="target">
+                                        <frame key="frameInset" minX="15" minY="64" width="50" height="100"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="100"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="svM-6B-TtG">
+                                                    <frame key="frameInset" width="50" height="100"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <connections>
+                                            <outlet property="cardImage" destination="svM-6B-TtG" id="cvP-kJ-axJ"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="C6b-Ev-wpD"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="IeY-oL-bf2"/>
+                                </connections>
+                            </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="imI-Pk-Ymc">
                                 <frame key="frameInset" minX="36" minY="589" width="303" height="28"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -59,26 +73,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OUQ-Nd-dPc">
-                                <frame key="frameInset" minX="15" minY="138" width="55" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mqv-18-oSk">
-                                <frame key="frameInset" minX="160" minY="138" width="55" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nh4-yr-400">
-                                <frame key="frameInset" minX="232" minY="138" width="55" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6HY-OQ-qj2">
-                                <frame key="frameInset" minX="88" minY="138" width="55" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qj9-e5-jLJ">
-                                <frame key="frameInset" minX="305" minY="138" width="55" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="勝敗" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ish-Vh-JIO">
                                 <frame key="frameInset" minX="16" minY="374" width="344" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -107,16 +101,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="card1" destination="A2j-yf-ygH" id="vOh-Jq-77r"/>
-                        <outlet property="card2" destination="SFh-Cg-fcp" id="9y4-WB-zyk"/>
-                        <outlet property="card3" destination="EJl-Os-hlD" id="6ui-5m-4gk"/>
-                        <outlet property="card4" destination="lBr-dO-Mql" id="fFE-DZ-AdY"/>
-                        <outlet property="card5" destination="6YZ-gs-c0L" id="uc0-vG-yUT"/>
-                        <outlet property="eCard1" destination="OUQ-Nd-dPc" id="fLd-36-dEh"/>
-                        <outlet property="eCard2" destination="6HY-OQ-qj2" id="730-qt-flF"/>
-                        <outlet property="eCard3" destination="Mqv-18-oSk" id="XnE-3I-fgn"/>
-                        <outlet property="eCard4" destination="nh4-yr-400" id="kMe-Nt-XG0"/>
-                        <outlet property="eCard5" destination="qj9-e5-jLJ" id="iQ5-Fo-Npj"/>
+                        <outlet property="cardCollectionView" destination="ecA-2B-hxu" id="oGj-Ef-8U2"/>
                         <outlet property="eLabel" destination="FbI-bh-qcy" id="ewc-KA-0SP"/>
                         <outlet property="label" destination="imI-Pk-Ymc" id="ykn-JB-qLh"/>
                         <outlet property="result" destination="Ish-Vh-JIO" id="K2V-Ab-Wzw"/>

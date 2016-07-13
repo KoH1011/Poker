@@ -10,31 +10,23 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var card1: UIImageView!
-    @IBOutlet weak var card2: UIImageView!
-    @IBOutlet weak var card3: UIImageView!
-    @IBOutlet weak var card4: UIImageView!
-    @IBOutlet weak var card5: UIImageView!
     @IBOutlet weak var label: UILabel!
-    
-    @IBOutlet weak var eCard1: UIImageView!
-    @IBOutlet weak var eCard2: UIImageView!
-    @IBOutlet weak var eCard3: UIImageView!
-    @IBOutlet weak var eCard4: UIImageView!
-    @IBOutlet weak var eCard5: UIImageView!
     @IBOutlet weak var eLabel: UILabel!
+    
     @IBOutlet weak var result: UILabel!
+    @IBOutlet weak var cardCollectionView: UICollectionView!
+    
+    var cardsImage = [String]()
+    var cards = [Card]()
+    var youScore = 0
     
     var eCardsImage = [String]()
     var eCards = [Card]()
-    var youScore = 0
     var enemyScore = 0
+    var flag = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var cardsImage = [String]()
-        var cards = [Card]()
         
         let tehuda = Deck().getRandom(count: 5)
         let eTehuda = Deck().getRandom(count: 5)
@@ -50,19 +42,6 @@ class ViewController: UIViewController {
             eCards.append(eCard)
             eCardsImage.append(eCardImage())
         }
-        
-        self.card1.image = UIImage(named: cardsImage[0])
-        self.card2.image = UIImage(named: cardsImage[1])
-        self.card3.image = UIImage(named: cardsImage[2])
-        self.card4.image = UIImage(named: cardsImage[3])
-        self.card5.image = UIImage(named: cardsImage[4])
-        
-        
-        self.eCard1.image = UIImage(named: "r.png")
-        self.eCard2.image = UIImage(named: "r.png")
-        self.eCard3.image = UIImage(named: "r.png")
-        self.eCard4.image = UIImage(named: "r.png")
-        self.eCard5.image = UIImage(named: "r.png")
         
         let rowRankHand = judge.role(cards: cards)
         self.label.text = "あなたの手役は\(rowRankHand.0)です。"
@@ -82,11 +61,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func battle(_ sender: UIButton) {
-        self.eCard1.image = UIImage(named: eCardsImage[0])
-        self.eCard2.image = UIImage(named: eCardsImage[1])
-        self.eCard3.image = UIImage(named: eCardsImage[2])
-        self.eCard4.image = UIImage(named: eCardsImage[3])
-        self.eCard5.image = UIImage(named: eCardsImage[4])
+        
+        self.flag = true
+        self.cardCollectionView.reloadData()
         
         let rowRankHand = judge.role(cards: eCards)
         self.eLabel.text = "相手の手役は\(rowRankHand.0)です。"
@@ -99,5 +76,38 @@ class ViewController: UIViewController {
         } else {
             self.result.text = "引き分けです"
         }
+    }
+}
+
+extension ViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CardCollectionViewCell
+        
+        switch indexPath.section {
+        case 0:
+            if flag {
+                let name = eCards[indexPath.row].toImageName()
+                cell.setImage(card: name)
+            } else {
+                let card = "r.png"
+                cell.setImage(card: card)
+            }
+        case 1:
+            cell.frame = CGRect(x: cell.frame.minX, y: 350, width: cell.frame.width, height: cell.frame.height)
+            let name = cards[indexPath.row].toImageName()
+            cell.setImage(card: name)
+        default:
+            print("error")
+        }
+        return cell
     }
 }
