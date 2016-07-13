@@ -73,7 +73,8 @@ enum Role: String {
 class judge {
     class func role(cards: [Card]) -> (String, Int) {
         // 各ランクがそれぞれ何枚あるかをnumOfRanksに保存
-        var numOfRanks = [0,0,0,0,0,0,0,0,0,0,0,0,0]
+        var numOfRanks = [Int]()
+        numOfRanks = [0,0,0,0,0,0,0,0,0,0,0,0,0]
         for card in cards {
             numOfRanks[card.number - 1] += 1
         }

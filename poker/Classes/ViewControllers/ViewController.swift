@@ -29,22 +29,22 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.cardCollectionView.allowsMultipleSelection = true
-        
-        let tehuda = Deck().getRandom(count: 5)
-        let eTehuda = Deck().getRandom(count: 5)
-        
-        for card in tehuda {
-            let cardImage = Card.toImageName(card)
-            cards.append(card)
-            cardsImage.append(cardImage())
+        if cards.count != 5 {
+            let tehuda = Deck().getRandom(count: 5)
+            let eTehuda = Deck().getRandom(count: 5)
+            
+            for card in tehuda {
+                let cardImage = Card.toImageName(card)()
+                cards.append(card)
+                cardsImage.append(cardImage)
+            }
+            
+            for eCard in eTehuda {
+                let eCardImage = Card.toImageName(eCard)()
+                eCards.append(eCard)
+                eCardsImage.append(eCardImage)
+            }
         }
-        
-        for eCard in eTehuda {
-            let eCardImage = Card.toImageName(eCard)
-            eCards.append(eCard)
-            eCardsImage.append(eCardImage())
-        }
-        
         let rowRankHand = judge.role(cards: cards)
         self.label.text = "あなたの手役は\(rowRankHand.0)です。"
         self.youScore = rowRankHand.1
@@ -60,6 +60,20 @@ class ViewController: UIViewController {
         let controller = storyboard.instantiateViewController(withIdentifier: "ViewController")
         
         self.navigationController?.pushViewController(controller, animated: false)
+    }
+    
+    @IBAction func change(_ sender: UIButton) {
+        var count = 0
+        for card in cards {
+            if card.selected == true {
+                let changeCard = Deck().changeCard()
+                cards[count] = changeCard
+                
+            }
+            count += 1
+        }
+        loadView()
+        viewDidLoad()
     }
     
     @IBAction func battle(_ sender: UIButton) {
@@ -122,7 +136,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
             let cell = cardCollectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
             if cell.cardImage.frame.minY == 20.0 {
                 cell.cardImage.frame = CGRect(x: cell.cardImage.frame.minX, y: 0, width: cell.cardImage.frame.width, height: cell.cardImage.frame.height)
-                
+                cards[indexPath.row].selected = true
             } else {
                 cell.cardImage.frame = CGRect(x: cell.cardImage.frame.minX, y: 20, width: cell.cardImage.frame.width, height: cell.cardImage.frame.height)
                 cell.isSelected = false

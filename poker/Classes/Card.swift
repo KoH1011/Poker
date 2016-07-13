@@ -30,6 +30,7 @@ enum Mark {
 struct Card {
     let mark: Mark
     let number: Int
+    var selected: Bool
     
     func toImageName() -> String {
         return self.mark.toImageName() + "\(number).png"

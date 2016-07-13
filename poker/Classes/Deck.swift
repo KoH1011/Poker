@@ -14,7 +14,7 @@ class Deck {
     init() {
         for mark in Mark.list() {
             for i in 1...13 {
-                self.cards.append(Card(mark: mark, number: i))
+                self.cards.append(Card(mark: mark, number: i, selected: false))
             }
         }
     }
@@ -27,5 +27,10 @@ class Deck {
             tehuda.append(self.cards[Int(cardNum)])
         }
         return tehuda
+    }
+    
+    func changeCard() -> Card {
+        let cardNum = arc4random_uniform(UInt32(self.cards.count))
+        return self.cards[Int(cardNum)]
     }
 }
