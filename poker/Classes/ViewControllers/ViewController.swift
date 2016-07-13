@@ -28,6 +28,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.cardCollectionView.allowsMultipleSelection = true
+        
         let tehuda = Deck().getRandom(count: 5)
         let eTehuda = Deck().getRandom(count: 5)
         
@@ -79,7 +81,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UICollectionViewDataSource {
+extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
@@ -102,12 +104,31 @@ extension ViewController: UICollectionViewDataSource {
                 cell.setImage(card: card)
             }
         case 1:
-            cell.frame = CGRect(x: cell.frame.minX, y: 350, width: cell.frame.width, height: cell.frame.height)
+            cell.frame = CGRect(x: cell.frame.minX, y: 330, width: cell.frame.width, height: cell.frame.height)
             let name = cards[indexPath.row].toImageName()
             cell.setImage(card: name)
         default:
             print("error")
         }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        switch indexPath.section {
+        case 0:
+            print("")
+        case 1:
+            let cell = cardCollectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
+            if cell.cardImage.frame.minY == 20.0 {
+                cell.cardImage.frame = CGRect(x: cell.cardImage.frame.minX, y: 0, width: cell.cardImage.frame.width, height: cell.cardImage.frame.height)
+                
+            } else {
+                cell.cardImage.frame = CGRect(x: cell.cardImage.frame.minX, y: 20, width: cell.cardImage.frame.width, height: cell.cardImage.frame.height)
+                cell.isSelected = false
+            }
+        default:
+            print("")
+        }
     }
 }

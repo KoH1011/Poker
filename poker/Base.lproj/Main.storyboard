@@ -23,25 +23,28 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="250" minimumInteritemSpacing="15" id="gu2-l8-dPo">
-                                    <size key="itemSize" width="50" height="100"/>
+                                    <size key="itemSize" width="50" height="120"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="n4e-rh-GeL" customClass="CardCollectionViewCell" customModule="poker" customModuleProvider="target">
-                                        <frame key="frameInset" minX="15" minY="64" width="50" height="100"/>
+                                        <frame key="frameInset" minX="15" minY="64" width="50" height="120"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="svM-6B-TtG">
-                                                    <frame key="frameInset" width="50" height="100"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="svM-6B-TtG"/>
                                             </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="svM-6B-TtG" firstAttribute="top" secondItem="n4e-rh-GeL" secondAttribute="top" constant="20" id="WnB-wN-6VV"/>
+                                            <constraint firstAttribute="bottom" secondItem="svM-6B-TtG" secondAttribute="bottom" id="XbP-Pf-Nyo"/>
+                                            <constraint firstItem="svM-6B-TtG" firstAttribute="leading" secondItem="n4e-rh-GeL" secondAttribute="leading" id="cfR-XL-ecg"/>
+                                            <constraint firstAttribute="trailing" secondItem="svM-6B-TtG" secondAttribute="trailing" id="qCP-Fq-RoM"/>
+                                        </constraints>
                                         <connections>
                                             <outlet property="cardImage" destination="svM-6B-TtG" id="cvP-kJ-axJ"/>
                                         </connections>
