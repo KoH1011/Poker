@@ -54,12 +54,12 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func reload(_ sender: UIBarButtonItem) {
-        self.view = nil
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let controller = storyboard.instantiateViewController(withIdentifier: "ViewController")
-        
-        self.navigationController?.pushViewController(controller, animated: false)
+    @IBAction func reload(_ sender: UIButton) {
+//        self.view = nil
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let controller = storyboard.instantiateViewController(withIdentifier: "ViewController")
+//        
+//        self.navigationController?.pushViewController(controller, animated: false)
     }
     
     @IBAction func change(_ sender: UIButton) {
@@ -86,11 +86,11 @@ class ViewController: UIViewController {
         self.enemyScore = rowRankHand.1
         
         if self.youScore > self.enemyScore {
-            self.result.text = "あなたの勝ちです"
+            self.result.text = "あなたの勝ちです。"
         } else if self.youScore < self.enemyScore {
-            self.result.text = "あなたの負けです"
+            self.result.text = "あなたの負けです。"
         } else {
-            self.result.text = "引き分けです"
+            self.result.text = "引き分けです。"
         }
     }
 }

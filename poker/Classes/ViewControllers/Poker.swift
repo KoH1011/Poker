@@ -22,7 +22,7 @@ enum Role: String {
     var name : String {
         switch self {
         case .buta:
-            return "ぶた"
+            return "ブタ"
         case .onePair:
             return "ワンペア"
         case .twoPair:
