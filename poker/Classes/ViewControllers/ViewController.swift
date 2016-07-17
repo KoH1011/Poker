@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     var cardsImage = [String]()
     var cards = [Card]()
     var youScore = 0
+    var hand = ""
     
     var eCardsImage = [String]()
     var eCards = [Card]()
@@ -29,7 +30,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.cardCollectionView.allowsMultipleSelection = true
-        if cards.count != 5 {
+//        if cards.count != 5 {
             let tehuda = Deck().getRandom(count: 5)
             let eTehuda = Deck().getRandom(count: 5)
             
@@ -44,22 +45,23 @@ class ViewController: UIViewController {
                 eCards.append(eCard)
                 eCardsImage.append(eCardImage)
             }
-        }
-        let rowRankHand = judge.role(cards: cards)
-        self.label.text = "あなたの手役は\(rowRankHand.0)です。"
-        self.youScore = rowRankHand.1
+//        }
+        self.getHand()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
+    func getHand() {
+        let rowRankHand = judge.role(cards: cards)
+        self.hand = rowRankHand.0
+        self.youScore = rowRankHand.1
+        self.label.text =  "あなたの手役は\(rowRankHand.0)です。"
+    }
+    
     @IBAction func reload(_ sender: UIButton) {
-//        self.view = nil
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let controller = storyboard.instantiateViewController(withIdentifier: "ViewController")
-//        
-//        self.navigationController?.pushViewController(controller, animated: false)
+        
     }
     
     @IBAction func change(_ sender: UIButton) {
@@ -73,7 +75,7 @@ class ViewController: UIViewController {
             count += 1
         }
         loadView()
-        viewDidLoad()
+        self.getHand()
     }
     
     @IBAction func battle(_ sender: UIButton) {

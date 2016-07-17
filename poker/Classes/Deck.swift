@@ -9,6 +9,8 @@
 import UIKit
 
 class Deck {
+
+    static var yamahuda = [Card]()
     
     var cards = [Card]()
     init() {
@@ -24,13 +26,19 @@ class Deck {
         var tehuda = [Card]()
         for _ in 1...count {
             let cardNum = arc4random_uniform(UInt32(self.cards.count))
+            print(cardNum)
             tehuda.append(self.cards[Int(cardNum)])
+            self.cards.remove(at: Int(cardNum))
         }
+        Deck.yamahuda = self.cards
         return tehuda
     }
     
     func changeCard() -> Card {
-        let cardNum = arc4random_uniform(UInt32(self.cards.count))
-        return self.cards[Int(cardNum)]
+        let cardNum = arc4random_uniform(UInt32(Deck.yamahuda.count))
+        let selectedCard = Deck.yamahuda[Int(cardNum)]
+        Deck.yamahuda.remove(at: Int(cardNum))
+        
+        return selectedCard
     }
 }
