@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     
     var eCardsImage = [String]()
     var eCards = [Card]()
+    var eHand = ""
     var enemyScore = 0
     var flag = false
     
@@ -54,10 +55,65 @@ class ViewController: UIViewController {
     }
     
     func getHand() {
-        let rowRankHand = judge.role(cards: cards)
-        self.hand = rowRankHand.0
-        self.youScore = rowRankHand.1
-        self.label.text =  "あなたの手役は\(rowRankHand.0)です。"
+        let playerHand = judge.role(cards: cards)
+        self.hand = playerHand.0
+        self.youScore = playerHand.1
+        self.label.text =  "playerの手役は\(playerHand.0)です。"
+        
+        let eHand = judge.role(cards: eCards)
+        self.eHand = eHand.0
+        self.enemyScore = eHand.1
+    }
+    
+    func comChange(cards: [Card]) {
+        var cards = cards
+        let arrowCards = self.comArrow(cards: cards)
+        var count = 0
+        
+        for number in arrowCards {
+            let index = cards.index(where: {return $0.number == number})
+            print(index)
+            cards.remove(at: Int(index!))
+            count += 1
+        }
+        
+        if count != 0 {
+            cards = Deck().getRandom(count: count)
+        }
+        eCards = cards
+    }
+    
+    func comArrow(cards: [Card]) -> [Int] {
+           // 各ランクがそれぞれ何枚あるかをnumOfRanksに保存
+        var numOfRanks = [0,0,0,0,0,0,0,0,0,0,0,0,0]
+        for card in cards {
+            numOfRanks[card.number - 1] += 1
+        }
+        print(numOfRanks)
+        var num = [Int]()
+        
+        if self.enemyScore > 3 {
+            print("何もしない")
+        } else if self.enemyScore == 3 {
+            num = [numOfRanks.index(of: 1)!]
+        } else if self.enemyScore < 3 {
+            num = self.test(numOfRanks: numOfRanks)
+        }
+        
+        print(num)
+        return num
+    }
+    
+    private func test(numOfRanks: [Int]) -> [Int] {
+        var num = [Int]()
+        var count = 0
+        for a in numOfRanks {
+            count += 1
+            if a == 1 {
+                num.append(count)
+            }
+        }
+        return num
     }
     
     @IBAction func reload(_ sender: UIButton) {
@@ -76,6 +132,8 @@ class ViewController: UIViewController {
         }
         loadView()
         self.getHand()
+//        let a = ExpectedValue().bestThrow(cards: self.eCards)
+        comChange(cards: eCards)
     }
     
     @IBAction func battle(_ sender: UIButton) {
@@ -83,16 +141,14 @@ class ViewController: UIViewController {
         self.flag = true
         self.cardCollectionView.reloadData()
         
-        let rowRankHand = judge.role(cards: eCards)
-        self.eLabel.text = "相手の手役は\(rowRankHand.0)です。"
-        self.enemyScore = rowRankHand.1
+        self.eLabel.text = "相手の手役は\(self.eHand)です。"
         
         if self.youScore > self.enemyScore {
-            self.result.text = "あなたの勝ちです。"
+            self.result.text = "player Win"
         } else if self.youScore < self.enemyScore {
-            self.result.text = "あなたの負けです。"
+            self.result.text = "player Lose.."
         } else {
-            self.result.text = "引き分けです。"
+            self.result.text = "Draw"
         }
     }
 }
@@ -132,8 +188,6 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         switch indexPath.section {
-        case 0:
-            print("")
         case 1:
             let cell = cardCollectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
             if cell.cardImage.frame.minY == 20.0 {

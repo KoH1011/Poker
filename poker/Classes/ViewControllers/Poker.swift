@@ -133,6 +133,9 @@ class judge {
     }
     
     // FLUSHの判定
+    
+    // エラーが起こる
+    
     private class func isFlush(cards: [Card]) -> Bool {
         var isFlush = true
         for i in 1 ..< 13 {
