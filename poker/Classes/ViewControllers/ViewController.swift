@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SVProgressHUD
 
 class ViewController: UIViewController {
     
@@ -32,7 +31,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         self.cardCollectionView.allowsMultipleSelection = true
-//        if cards.count != 5 {
             let tehuda = Deck().getRandom(count: 5)
             let eTehuda = Deck().getRandom(count: 5)
             
@@ -47,7 +45,6 @@ class ViewController: UIViewController {
                 eCards.append(eCard)
                 eCardsImage.append(eCardImage)
             }
-//        }
         self.getHand()
     }
     
@@ -90,8 +87,6 @@ class ViewController: UIViewController {
             }
         }
         eCards = cards
-        SVProgressHUD.show(withStatus: "COM思考中...")
-        SVProgressHUD.dismiss(withDelay: 5)
     }
     
     func comArrow(cards: [Card]) -> [Int] {
