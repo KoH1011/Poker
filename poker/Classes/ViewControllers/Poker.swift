@@ -77,11 +77,11 @@ class judge {
         numOfRanks = [0,0,0,0,0,0,0,0,0,0,0,0,0]
         for card in cards {
             numOfRanks[card.number - 1] += 1
+            print(card.mark)
         }
         // ROYAL_STRAIGHT_FLUSH
         if isStraight(cards: cards, numOfRanks: numOfRanks) && isFlush(cards: cards) && numOfRanks[10] == 1 && numOfRanks[1] == 1 {
             return (Role.royalStraightFlash.name, Role.royalStraightFlash.score)
-            
         }
         // STRAIGHT_FLUSH
         if isStraight(cards: cards, numOfRanks: numOfRanks) && isFlush(cards: cards) {
@@ -120,25 +120,23 @@ class judge {
         }
     }
     
-    // 判定ミスあり (11 12 13 2 3)
     private class func isStraight(cards: [Card], numOfRanks: [Int]) -> Bool {
         var isStraight = false
-        for i in 1 ..< 13 {
-            if (numOfRanks + numOfRanks[1 ... 5-1])[i ..< i+5].reduce(true, combine: { $0 && $1 == 1 }) {
-                isStraight = true
-                break
-            }
+        var sortedCards = cards
+        sortedCards.sort { $0.number < $1.number }
+        print(sortedCards)
+        
+        // A K をまたがってのストレートの場合どうするか。。
+        if sortedCards[0].number == sortedCards[1].number - 1 && sortedCards[1].number == sortedCards[2].number - 1 && sortedCards[2].number == sortedCards[3].number - 1 && sortedCards[3].number == sortedCards[4].number - 1 {
+            isStraight = true
         }
         return isStraight
     }
     
     // FLUSHの判定
-    
-    // エラーが起こる
-    
     private class func isFlush(cards: [Card]) -> Bool {
         var isFlush = true
-        for i in 1 ..< 13 {
+        for i in 1...4 {
             isFlush = isFlush && cards[i-1].mark == cards[i].mark
         }
         return isFlush

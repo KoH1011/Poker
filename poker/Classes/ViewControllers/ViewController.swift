@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class ViewController: UIViewController {
     
@@ -71,6 +72,11 @@ class ViewController: UIViewController {
         var count = 0
         
         for number in arrowCards {
+        
+            
+            // スリーカードの場合落ちる
+            
+            print(cards)
             let index = cards.index(where: {return $0.number == number})
             print(index)
             cards.remove(at: Int(index!))
@@ -78,9 +84,14 @@ class ViewController: UIViewController {
         }
         
         if count != 0 {
-            cards = Deck().getRandom(count: count)
+            let drawCards = Deck().getRandom(count: count)
+            for card in drawCards {
+                cards.append(card)
+            }
         }
         eCards = cards
+        SVProgressHUD.show(withStatus: "COM思考中...")
+        SVProgressHUD.dismiss(withDelay: 5)
     }
     
     func comArrow(cards: [Card]) -> [Int] {
@@ -95,6 +106,9 @@ class ViewController: UIViewController {
         if self.enemyScore > 3 {
             print("何もしない")
         } else if self.enemyScore == 3 {
+            
+            // 配列から"1"という要素を複数見つけるためにはどうするか。
+            
             num = [numOfRanks.index(of: 1)!]
         } else if self.enemyScore < 3 {
             num = self.test(numOfRanks: numOfRanks)
@@ -169,6 +183,8 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         switch indexPath.section {
         case 0:
             if flag {
+                print(eCards)
+                print(eCards.count)
                 let name = eCards[indexPath.row].toImageName()
                 cell.setImage(card: name)
             } else {
