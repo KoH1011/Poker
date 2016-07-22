@@ -25,11 +25,13 @@ class Deck {
         // ランダムで取得
         var tehuda = [Card]()
         for _ in 1...count {
+            // ランダムで取得するときにデッキからではなくて、枚数から取得してるから被ることがある。
             let cardNum = arc4random_uniform(UInt32(self.cards.count))
-            print(cardNum)
             tehuda.append(self.cards[Int(cardNum)])
+            
             self.cards.remove(at: Int(cardNum))
         }
+        
         Deck.yamahuda = self.cards
         return tehuda
     }

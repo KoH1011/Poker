@@ -119,16 +119,24 @@ class judge {
             return (Role.buta.name, Role.buta.score)
         }
     }
-    
+    // STRAIGHTの判定
     private class func isStraight(cards: [Card], numOfRanks: [Int]) -> Bool {
-        var isStraight = false
-        var sortedCards = cards
-        sortedCards.sort { $0.number < $1.number }
-        print(sortedCards)
+        var cards = cards
+        cards.sort { $0.number < $1.number }
+        let numbers = cards.map { $0.number }
         
-        // A K をまたがってのストレートの場合どうするか。。
-        if sortedCards[0].number == sortedCards[1].number - 1 && sortedCards[1].number == sortedCards[2].number - 1 && sortedCards[2].number == sortedCards[3].number - 1 && sortedCards[3].number == sortedCards[4].number - 1 {
-            isStraight = true
+        // エースを含めたストレート判定
+        if numbers == [1, 10, 11, 12, 13] {
+            return true
+        }
+        
+        var isStraight = false
+        
+        for i in 0...3 {
+            isStraight = numbers[i] == numbers[i + 1] - 1
+            if !isStraight {
+                break
+            }
         }
         return isStraight
     }

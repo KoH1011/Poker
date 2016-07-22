@@ -27,12 +27,14 @@ class ViewController: UIViewController {
     var enemyScore = 0
     var flag = false
     
+    let yamahuda = Deck()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.cardCollectionView.allowsMultipleSelection = true
-            let tehuda = Deck().getRandom(count: 5)
-            let eTehuda = Deck().getRandom(count: 5)
+            let tehuda = self.yamahuda.getRandom(count: 5)
+            let eTehuda = self.yamahuda.getRandom(count: 5)
             
             for card in tehuda {
                 let cardImage = Card.toImageName(card)()
@@ -69,19 +71,14 @@ class ViewController: UIViewController {
         var count = 0
         
         for number in arrowCards {
-        
-            
-            // スリーカードの場合落ちる
-            
-            print(cards)
-            let index = cards.index(where: {return $0.number == number})
+           let index = cards.index(where: {return $0.number == number})
             print(index)
             cards.remove(at: Int(index!))
             count += 1
         }
         
         if count != 0 {
-            let drawCards = Deck().getRandom(count: count)
+            let drawCards = self.yamahuda.getRandom(count: count)
             for card in drawCards {
                 cards.append(card)
             }
@@ -90,26 +87,16 @@ class ViewController: UIViewController {
     }
     
     func comArrow(cards: [Card]) -> [Int] {
-           // 各ランクがそれぞれ何枚あるかをnumOfRanksに保存
         var numOfRanks = [0,0,0,0,0,0,0,0,0,0,0,0,0]
         for card in cards {
             numOfRanks[card.number - 1] += 1
         }
-        print(numOfRanks)
         var num = [Int]()
-        
         if self.enemyScore > 3 {
             print("何もしない")
-        } else if self.enemyScore == 3 {
-            
-            // 配列から"1"という要素を複数見つけるためにはどうするか。
-            
-            num = [numOfRanks.index(of: 1)!]
-        } else if self.enemyScore < 3 {
+        } else if self.enemyScore <= 3 {
             num = self.test(numOfRanks: numOfRanks)
         }
-        
-        print(num)
         return num
     }
     
@@ -206,7 +193,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
                 cards[indexPath.row].selected = true
             } else {
                 cell.cardImage.frame = CGRect(x: cell.cardImage.frame.minX, y: 20, width: cell.cardImage.frame.width, height: cell.cardImage.frame.height)
-                cell.isSelected = false
+                cards[indexPath.row].selected = false
             }
         default:
             print("")
