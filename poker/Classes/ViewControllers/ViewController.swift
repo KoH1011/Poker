@@ -6,14 +6,26 @@
 //  Copyright © 2016年 高橋洸介. All rights reserved.
 //
 
+import Foundation
 import UIKit
+import SVProgressHUD
+
+enum FieldType: Int {
+    case CPU
+    case Player
+}
 
 class ViewController: UIViewController {
+    
+    struct Const {
+        static let cardMax = 5
+    }
     
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var eLabel: UILabel!
     
     @IBOutlet weak var result: UILabel!
+    @IBOutlet weak var changeButton: UIButton!
     @IBOutlet weak var cardCollectionView: UICollectionView!
     
     var cardsImage = [String]()
@@ -27,31 +39,46 @@ class ViewController: UIViewController {
     var enemyScore = 0
     var flag = false
     
+    var turn = 6
+    
     let yamahuda = Deck()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.cardCollectionView.allowsMultipleSelection = true
-            let tehuda = self.yamahuda.getRandom(count: 5)
-            let eTehuda = self.yamahuda.getRandom(count: 5)
-            
-            for card in tehuda {
-                let cardImage = Card.toImageName(card)()
-                cards.append(card)
-                cardsImage.append(cardImage)
-            }
-            
-            for eCard in eTehuda {
-                let eCardImage = Card.toImageName(eCard)()
-                eCards.append(eCard)
-                eCardsImage.append(eCardImage)
-            }
+        let tehuda = self.yamahuda.getRandom(count: 5)
+        let eTehuda = self.yamahuda.getRandom(count: 5)
+        
+        for card in tehuda {
+            let cardImage = Card.toImageName(card)()
+            cards.append(card)
+            cardsImage.append(cardImage)
+        }
+        
+        for eCard in eTehuda {
+            let eCardImage = Card.toImageName(eCard)()
+            eCards.append(eCard)
+            eCardsImage.append(eCardImage)
+        }
         self.getHand()
+        
+        countTurn()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func countTurn() {
+        self.turn -= 1
+        self.result.text = "あと、\(self.turn)ターンです。"
+        
+        if self.turn == 0 {
+            self.result.text = "交換できません。"
+            self.changeButton.isEnabled = false
+            self.changeButton.setTitleColor(UIColor.gray(), for: .disabled)
+        }
     }
     
     func getHand() {
@@ -71,7 +98,7 @@ class ViewController: UIViewController {
         var count = 0
         
         for number in arrowCards {
-           let index = cards.index(where: {return $0.number == number})
+            let index = cards.index(where: {return $0.number == number})
             print(index)
             cards.remove(at: Int(index!))
             count += 1
@@ -127,9 +154,25 @@ class ViewController: UIViewController {
             count += 1
         }
         loadView()
-        self.getHand()
-//        let a = ExpectedValue().bestThrow(cards: self.eCards)
+        
+        countTurn()
+//       self.cardCollectionView.reloadData()
+        
+//        for card in self.cards {
+//            print(card.selected)
+//        }
+//        
+//        print("CPU")
+//        for card in self.eCards {
+//            print(card.selected)
+//        }
+        
         comChange(cards: eCards)
+        self.getHand()
+        SVProgressHUD.show(withStatus: "CPU思考中...")
+        DispatchQueue.main.after(when: .now() + 3) {
+            SVProgressHUD.dismiss()
+        }
     }
     
     @IBAction func battle(_ sender: UIButton) {
@@ -149,9 +192,10 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension ViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return Const.cardMax
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -161,32 +205,34 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = cardCollectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CardCollectionViewCell
-        
-        switch indexPath.section {
-        case 0:
+        guard let type = FieldType(rawValue: indexPath.section) else {
+            return cell
+        }
+
+        switch type {
+        case .CPU:
             if flag {
-                print(eCards)
-                print(eCards.count)
                 let name = eCards[indexPath.row].toImageName()
                 cell.setImage(card: name)
             } else {
                 let card = "r.png"
                 cell.setImage(card: card)
             }
-        case 1:
+        case .Player:
             cell.frame = CGRect(x: cell.frame.minX, y: 330, width: cell.frame.width, height: cell.frame.height)
+            print(cell.frame)
             let name = cards[indexPath.row].toImageName()
             cell.setImage(card: name)
-        default:
-            print("error")
         }
         return cell
     }
-    
+}
+
+extension ViewController: UICollectionViewDelegate {
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        switch indexPath.section {
-        case 1:
+        if FieldType(rawValue: indexPath.section) == .Player {
             let cell = cardCollectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
             if cell.cardImage.frame.minY == 20.0 {
                 cell.cardImage.frame = CGRect(x: cell.cardImage.frame.minX, y: 0, width: cell.cardImage.frame.width, height: cell.cardImage.frame.height)
@@ -195,8 +241,6 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
                 cell.cardImage.frame = CGRect(x: cell.cardImage.frame.minX, y: 20, width: cell.cardImage.frame.width, height: cell.cardImage.frame.height)
                 cards[indexPath.row].selected = false
             }
-        default:
-            print("")
         }
     }
 }

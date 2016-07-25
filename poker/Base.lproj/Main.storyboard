@@ -80,7 +80,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="勝敗" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ish-Vh-JIO">
-                                <frame key="frameInset" minX="16" minY="404" width="344" height="21"/>
+                                <frame key="frameInset" minX="16" minY="414" width="344" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -141,6 +141,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="cardCollectionView" destination="ecA-2B-hxu" id="oGj-Ef-8U2"/>
+                        <outlet property="changeButton" destination="zJG-7p-st6" id="BM8-fH-ne9"/>
                         <outlet property="eLabel" destination="FbI-bh-qcy" id="ewc-KA-0SP"/>
                         <outlet property="label" destination="imI-Pk-Ymc" id="ykn-JB-qLh"/>
                         <outlet property="result" destination="Ish-Vh-JIO" id="K2V-Ab-Wzw"/>

@@ -1,0 +1,6 @@
+framework module Pods_poker {
+  umbrella header "Pods-poker-umbrella.h"
+
+  export *
+  module * { export * }
+}
