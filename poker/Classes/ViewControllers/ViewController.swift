@@ -32,15 +32,12 @@ class ViewController: UIViewController {
     var cards = [Card]()
     var youScore = 0
     var hand = ""
-    
     var eCardsImage = [String]()
     var eCards = [Card]()
     var eHand = ""
     var enemyScore = 0
     var flag = false
-    
     var turn = 6
-    
     let yamahuda = Deck()
     
     override func viewDidLoad() {
@@ -57,6 +54,7 @@ class ViewController: UIViewController {
         }
         
         for eCard in eTehuda {
+            
             let eCardImage = Card.toImageName(eCard)()
             eCards.append(eCard)
             eCardsImage.append(eCardImage)
@@ -73,6 +71,7 @@ class ViewController: UIViewController {
     }
     
     func countTurn() {
+        
         self.turn -= 1
         self.result.text = "あと、\(self.turn)ターンです。"
         
@@ -84,6 +83,7 @@ class ViewController: UIViewController {
     }
     
     func getHand() {
+        
         let playerHand = judge.role(cards: cards)
         self.hand = playerHand.0
         self.youScore = playerHand.1
@@ -95,6 +95,7 @@ class ViewController: UIViewController {
     }
     
     func comChange(cards: [Card]) {
+        
         var cards = cards
         let arrowCards = self.comArrow(cards: cards)
         var count = 0
@@ -115,11 +116,13 @@ class ViewController: UIViewController {
     }
     
     func comArrow(cards: [Card]) -> [Int] {
+        
         var numOfRanks = [0,0,0,0,0,0,0,0,0,0,0,0,0]
         for card in cards {
             numOfRanks[card.number - 1] += 1
         }
         var num = [Int]()
+        
         if self.enemyScore > 3 {
             print("何もしない")
         } else if self.enemyScore <= 3 {
@@ -129,6 +132,7 @@ class ViewController: UIViewController {
     }
     
     private func arrowCard(numOfRanks: [Int]) -> [Int] {
+        
         var num = [Int]()
         var count = 0
         for card in numOfRanks {
@@ -141,6 +145,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func reload(_ sender: UIButton) {
+        
         self.view = nil
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "ViewController")
@@ -148,12 +153,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func change(_ sender: UIButton) {
+        
         var count = 0
         for card in cards {
             if card.selected == true {
                 let changeCard = Deck().changeCard()
                 cards[count] = changeCard
-                
             }
             count += 1
         }
@@ -187,10 +192,12 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return Const.cardMax
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
+        
         return 2
     }
     
