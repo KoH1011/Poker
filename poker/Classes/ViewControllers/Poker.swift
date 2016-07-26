@@ -77,7 +77,6 @@ class judge {
         numOfRanks = [0,0,0,0,0,0,0,0,0,0,0,0,0]
         for card in cards {
             numOfRanks[card.number - 1] += 1
-            print(card.mark)
         }
         // ROYAL_STRAIGHT_FLUSH
         if isStraight(cards: cards, numOfRanks: numOfRanks) && isFlush(cards: cards) && numOfRanks[10] == 1 && numOfRanks[1] == 1 {

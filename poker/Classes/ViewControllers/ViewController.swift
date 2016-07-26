@@ -64,6 +64,8 @@ class ViewController: UIViewController {
         self.getHand()
         
         countTurn()
+        let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        navigationItem.backBarButtonItem = backButtonItem
     }
     
     override func didReceiveMemoryWarning() {
@@ -99,7 +101,6 @@ class ViewController: UIViewController {
         
         for number in arrowCards {
             let index = cards.index(where: {return $0.number == number})
-            print(index)
             cards.remove(at: Int(index!))
             count += 1
         }
@@ -122,17 +123,17 @@ class ViewController: UIViewController {
         if self.enemyScore > 3 {
             print("何もしない")
         } else if self.enemyScore <= 3 {
-            num = self.test(numOfRanks: numOfRanks)
+            num = self.arrowCard(numOfRanks: numOfRanks)
         }
         return num
     }
     
-    private func test(numOfRanks: [Int]) -> [Int] {
+    private func arrowCard(numOfRanks: [Int]) -> [Int] {
         var num = [Int]()
         var count = 0
-        for a in numOfRanks {
+        for card in numOfRanks {
             count += 1
-            if a == 1 {
+            if card == 1 {
                 num.append(count)
             }
         }
@@ -140,7 +141,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func reload(_ sender: UIButton) {
-        
+        self.view = nil
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "ViewController")
+        navigationController?.pushViewController(controller, animated: false)
     }
     
     @IBAction func change(_ sender: UIButton) {
@@ -153,20 +157,8 @@ class ViewController: UIViewController {
             }
             count += 1
         }
-        loadView()
-        
+        self.cardCollectionView.reloadData()
         countTurn()
-//       self.cardCollectionView.reloadData()
-        
-//        for card in self.cards {
-//            print(card.selected)
-//        }
-//        
-//        print("CPU")
-//        for card in self.eCards {
-//            print(card.selected)
-//        }
-        
         comChange(cards: eCards)
         self.getHand()
         SVProgressHUD.show(withStatus: "CPU思考中...")
@@ -208,9 +200,12 @@ extension ViewController: UICollectionViewDataSource {
         guard let type = FieldType(rawValue: indexPath.section) else {
             return cell
         }
+        
+        cell.cardImage.frame = CGRect(x: 0.0, y: 20.0, width: 50.0, height: 100.0)
 
         switch type {
         case .CPU:
+            
             if flag {
                 let name = eCards[indexPath.row].toImageName()
                 cell.setImage(card: name)
@@ -219,8 +214,7 @@ extension ViewController: UICollectionViewDataSource {
                 cell.setImage(card: card)
             }
         case .Player:
-            cell.frame = CGRect(x: cell.frame.minX, y: 330, width: cell.frame.width, height: cell.frame.height)
-            print(cell.frame)
+            cell.frame = CGRect(x: cell.frame.minX, y: 390, width: cell.frame.width, height: cell.frame.height)
             let name = cards[indexPath.row].toImageName()
             cell.setImage(card: name)
         }
