@@ -28,40 +28,45 @@ class ViewController: UIViewController {
     @IBOutlet weak var changeButton: UIButton!
     @IBOutlet weak var cardCollectionView: UICollectionView!
     
-    var cardsImage = [String]()
-    var cards = [Card]()
-    var youScore = 0
-    var hand = ""
-    var eCardsImage = [String]()
-    var eCards = [Card]()
-    var eHand = ""
-    var enemyScore = 0
+    var playerCardsImage = [String]()
+    var playerCards = [Card]()
+    var playerScore = 0
+    var playerRole = ""
+    var cpuCardsImage = [String]()
+    var cpuCards = [Card]()
+    var cpuRole = ""
+    var cpuScore = 0
+    
     var flag = false
     var turn = 6
-    let yamahuda = Deck()
+    let stock = Deck()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.cardCollectionView.allowsMultipleSelection = true
-        let tehuda = self.yamahuda.getRandom(count: 5)
-        let eTehuda = self.yamahuda.getRandom(count: 5)
+        let hand = self.stock.getRandom(count: 5)
+        let cpuHand = self.stock.getRandom(count: 5)
         
-        for card in tehuda {
+        for card in hand {
             let cardImage = Card.toImageName(card)()
-            cards.append(card)
-            cardsImage.append(cardImage)
+            playerCards.append(card)
+            playerCardsImage.append(cardImage)
         }
         
-        for eCard in eTehuda {
+        for cpuCard in cpuHand {
             
-            let eCardImage = Card.toImageName(eCard)()
-            eCards.append(eCard)
-            eCardsImage.append(eCardImage)
+            let eCardImage = Card.toImageName(cpuCard)()
+            cpuCards.append(cpuCard)
+            cpuCardsImage.append(eCardImage)
         }
-        self.getHand()
+        self.getRole()
         
         countTurn()
+        
+        self.changeButton.isEnabled = false
+        self.changeButton.setTitleColor(UIColor.gray(), for: .disabled)
+        
         let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButtonItem
     }
@@ -76,28 +81,28 @@ class ViewController: UIViewController {
         self.result.text = "あと、\(self.turn)ターンです。"
         
         if self.turn == 0 {
-            self.result.text = "交換できません。"
+            self.result.text = "ターン終了です。"
             self.changeButton.isEnabled = false
             self.changeButton.setTitleColor(UIColor.gray(), for: .disabled)
         }
     }
     
-    func getHand() {
+    func getRole() {
         
-        let playerHand = judge.role(cards: cards)
-        self.hand = playerHand.0
-        self.youScore = playerHand.1
-        self.label.text =  "playerの手役は\(playerHand.0)です。"
+        let playerData = judge.role(cards: playerCards)
+        self.playerRole = playerData.0
+        self.playerScore = playerData.1
+        self.label.text =  "playerの手役は\(playerData.0)です。"
         
-        let eHand = judge.role(cards: eCards)
-        self.eHand = eHand.0
-        self.enemyScore = eHand.1
+        let cpuHand = judge.role(cards: cpuCards)
+        self.cpuRole = cpuHand.0
+        self.cpuScore = cpuHand.1
     }
     
-    func comChange(cards: [Card]) {
+    func cpuChange(cards: [Card]) {
         
         var cards = cards
-        let arrowCards = self.comArrow(cards: cards)
+        let arrowCards = self.cpuArrow(cards: cards)
         var count = 0
         
         for number in arrowCards {
@@ -107,25 +112,24 @@ class ViewController: UIViewController {
         }
         
         if count != 0 {
-            let drawCards = self.yamahuda.getRandom(count: count)
+            let drawCards = self.stock.getRandom(count: count)
             for card in drawCards {
                 cards.append(card)
             }
         }
-        eCards = cards
+        cpuCards = cards
     }
     
-    func comArrow(cards: [Card]) -> [Int] {
+    func cpuArrow(cards: [Card]) -> [Int] {
         
         var numOfRanks = [0,0,0,0,0,0,0,0,0,0,0,0,0]
         for card in cards {
             numOfRanks[card.number - 1] += 1
         }
+        
         var num = [Int]()
         
-        if self.enemyScore > 3 {
-            print("何もしない")
-        } else if self.enemyScore <= 3 {
+        if self.cpuScore <= 3 {
             num = self.arrowCard(numOfRanks: numOfRanks)
         }
         return num
@@ -155,17 +159,17 @@ class ViewController: UIViewController {
     @IBAction func change(_ sender: UIButton) {
         
         var count = 0
-        for card in cards {
+        for card in playerCards {
             if card.selected == true {
                 let changeCard = Deck().changeCard()
-                cards[count] = changeCard
+                playerCards[count] = changeCard
             }
             count += 1
         }
         self.cardCollectionView.reloadData()
         countTurn()
-        comChange(cards: eCards)
-        self.getHand()
+        cpuChange(cards: cpuCards)
+        self.getRole()
         SVProgressHUD.show(withStatus: "CPU思考中...")
         DispatchQueue.main.after(when: .now() + 3) {
             SVProgressHUD.dismiss()
@@ -177,11 +181,11 @@ class ViewController: UIViewController {
         self.flag = true
         self.cardCollectionView.reloadData()
         
-        self.eLabel.text = "相手の手役は\(self.eHand)です。"
+        self.eLabel.text = "相手の手役は\(self.cpuRole)です。"
         
-        if self.youScore > self.enemyScore {
+        if self.playerScore > self.cpuScore {
             self.result.text = "player Win"
-        } else if self.youScore < self.enemyScore {
+        } else if self.playerScore < self.cpuScore {
             self.result.text = "player Lose.."
         } else {
             self.result.text = "Draw"
@@ -214,7 +218,7 @@ extension ViewController: UICollectionViewDataSource {
         case .CPU:
             
             if flag {
-                let name = eCards[indexPath.row].toImageName()
+                let name = cpuCards[indexPath.row].toImageName()
                 cell.setImage(card: name)
             } else {
                 let card = "r.png"
@@ -222,7 +226,7 @@ extension ViewController: UICollectionViewDataSource {
             }
         case .Player:
             cell.frame = CGRect(x: cell.frame.minX, y: 390, width: cell.frame.width, height: cell.frame.height)
-            let name = cards[indexPath.row].toImageName()
+            let name = playerCards[indexPath.row].toImageName()
             cell.setImage(card: name)
         }
         return cell
@@ -237,10 +241,13 @@ extension ViewController: UICollectionViewDelegate {
             let cell = cardCollectionView.cellForItem(at: indexPath) as! CardCollectionViewCell
             if cell.cardImage.frame.minY == 20.0 {
                 cell.cardImage.frame = CGRect(x: cell.cardImage.frame.minX, y: 0, width: cell.cardImage.frame.width, height: cell.cardImage.frame.height)
-                cards[indexPath.row].selected = true
+                playerCards[indexPath.row].selected = true
+                
+                self.changeButton.isEnabled = true
+                self.changeButton.setTitleColor(UIColor.white(), for: .disabled)
             } else {
                 cell.cardImage.frame = CGRect(x: cell.cardImage.frame.minX, y: 20, width: cell.cardImage.frame.width, height: cell.cardImage.frame.height)
-                cards[indexPath.row].selected = false
+                playerCards[indexPath.row].selected = false
             }
         }
     }

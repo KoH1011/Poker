@@ -9,7 +9,7 @@
 enum Mark {
     case heart, dia, clover, spade
     
-    func toImageName() -> String {
+    func initialism() -> String {
         switch self {
         case heart:
             return "h"
@@ -33,6 +33,6 @@ struct Card {
     var selected: Bool
     
     func toImageName() -> String {
-        return self.mark.toImageName() + "\(number).png"
+        return self.mark.initialism() + "\(number).png"
     }
 }

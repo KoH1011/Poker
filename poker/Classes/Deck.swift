@@ -10,7 +10,7 @@ import UIKit
 
 class Deck {
 
-    static var yamahuda = [Card]()
+    static var stock = [Card]()
     
     var cards = [Card]()
     init() {
@@ -23,23 +23,23 @@ class Deck {
     
     func getRandom(count: Int) -> [Card] {
         // ランダムで取得
-        var tehuda = [Card]()
+        var hand = [Card]()
         for _ in 1...count {
             // ランダムで取得するときにデッキからではなくて、枚数から取得してるから被ることがある。
             let cardNum = arc4random_uniform(UInt32(self.cards.count))
-            tehuda.append(self.cards[Int(cardNum)])
+            hand.append(self.cards[Int(cardNum)])
             
             self.cards.remove(at: Int(cardNum))
         }
         
-        Deck.yamahuda = self.cards
-        return tehuda
+        Deck.stock = self.cards
+        return hand
     }
     
     func changeCard() -> Card {
-        let cardNum = arc4random_uniform(UInt32(Deck.yamahuda.count))
-        let selectedCard = Deck.yamahuda[Int(cardNum)]
-        Deck.yamahuda.remove(at: Int(cardNum))
+        let cardNum = arc4random_uniform(UInt32(Deck.stock.count))
+        let selectedCard = Deck.stock[Int(cardNum)]
+        Deck.stock.remove(at: Int(cardNum))
         
         return selectedCard
     }
