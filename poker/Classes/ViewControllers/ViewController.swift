@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import SVProgressHUD
+import BaltoSDK
 
 enum FieldType: Int {
     case CPU
@@ -43,6 +44,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Balto.show()
         
         self.cardCollectionView.allowsMultipleSelection = true
         let hand = self.stock.getRandom(count: 5)
