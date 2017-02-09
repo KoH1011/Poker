@@ -45,7 +45,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // FBツール
+        // FBツールこれ便利
         Balto.show()
         
         self.cardCollectionView.allowsMultipleSelection = true
