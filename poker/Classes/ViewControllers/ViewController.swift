@@ -65,7 +65,7 @@ class ViewController: UIViewController {
         countTurn()
         
         self.changeButton.isEnabled = false
-        self.changeButton.setTitleColor(UIColor.gray(), for: .disabled)
+        self.changeButton.setTitleColor(UIColor.gray, for: .disabled)
         
         let backButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.backBarButtonItem = backButtonItem
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
         if self.turn == 0 {
             self.result.text = "ターン終了です。"
             self.changeButton.isEnabled = false
-            self.changeButton.setTitleColor(UIColor.gray(), for: .disabled)
+            self.changeButton.setTitleColor(UIColor.gray, for: .disabled)
         }
     }
     
@@ -171,9 +171,8 @@ class ViewController: UIViewController {
         cpuChange(cards: cpuCards)
         self.getRole()
         SVProgressHUD.show(withStatus: "CPU思考中...")
-        DispatchQueue.main.after(when: .now() + 3) {
             SVProgressHUD.dismiss()
-        }
+        
     }
     
     @IBAction func battle(_ sender: UIButton) {
@@ -244,7 +243,7 @@ extension ViewController: UICollectionViewDelegate {
                 playerCards[indexPath.row].selected = true
                 
                 self.changeButton.isEnabled = true
-                self.changeButton.setTitleColor(UIColor.white(), for: .disabled)
+                self.changeButton.setTitleColor(UIColor.white, for: .disabled)
             } else {
                 cell.cardImage.frame = CGRect(x: cell.cardImage.frame.minX, y: 20, width: cell.cardImage.frame.width, height: cell.cardImage.frame.height)
                 playerCards[indexPath.row].selected = false

@@ -11,13 +11,13 @@ enum Mark {
     
     func initialism() -> String {
         switch self {
-        case heart:
+        case .heart:
             return "h"
-        case dia:
+        case .dia:
             return "d"
-        case clover:
+        case .clover:
             return "c"
-        case spade:
+        case .spade:
             return "s"
         }
     }
